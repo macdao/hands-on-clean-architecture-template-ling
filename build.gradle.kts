@@ -1,9 +1,9 @@
 plugins {
     java
+    jacoco
     id("org.springframework.boot") version "3.4.0"
     id("io.spring.dependency-management") version "1.1.6"
-// 	id("org.springframework.cloud.contract") version "4.1.4"
-    jacoco
+    id("org.springframework.cloud.contract") version "4.1.4"
     id("com.diffplug.spotless") version "7.0.0.BETA4"
 }
 
@@ -71,8 +71,9 @@ spotless {
     }
 }
 
-// contracts {
-// }
+contracts {
+    packageWithBaseClasses = "com.example.demo.adapter.web"
+}
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
