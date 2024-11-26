@@ -2,7 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.4.0"
 	id("io.spring.dependency-management") version "1.1.6"
-	id("org.springframework.cloud.contract") version "4.2.0-RC1"
+//	id("org.springframework.cloud.contract") version "4.1.4"
 }
 
 group = "com.example"
@@ -22,10 +22,9 @@ configurations {
 
 repositories {
 	mavenCentral()
-	maven { url = uri("https://repo.spring.io/milestone") }
 }
 
-extra["springCloudVersion"] = "2024.0.0-RC1"
+extra["springCloudVersion"] = "2023.0.3"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -43,6 +42,7 @@ dependencies {
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	testAndDevelopmentOnly("org.springframework.boot:spring-boot-docker-compose")
 }
 
 dependencyManagement {
@@ -51,13 +51,9 @@ dependencyManagement {
 	}
 }
 
-contracts {
-}
+//contracts {
+//}
 
-tasks.withType<Test> {
-	useJUnitPlatform()
-}
-
-tasks.contractTest {
+tasks.withType<Test>().configureEach {
 	useJUnitPlatform()
 }
