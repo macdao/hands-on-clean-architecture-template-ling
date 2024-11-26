@@ -84,6 +84,13 @@ tasks.withType<JavaCompile>().configureEach {
     options.compilerArgs.add("-parameters")
 }
 
+tasks.named<JacocoReport>("jacocoTestReport") {
+    reports {
+        html.required = true
+    }
+    tasks.withType<Test>().forEach { executionData(it) }
+}
+
 tasks.named<JacocoCoverageVerification>("jacocoTestCoverageVerification") {
     violationRules {
         rule {

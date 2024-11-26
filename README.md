@@ -22,6 +22,8 @@ HoCATLing，Hands-on Clean Architecture Template Ling，即可落地的整洁架
 
   使用`./gradlew bootRun`运行本地环境。
 
+  如果需要启动本地三方服务，运行`scripts/run-stub-runner-server src/test/resources/contracts/client 16581`
+
 - 打包
 
   使用`./gradlew bootBuildImage`构建Docker镜像。这基于Spring Boot的Gradle插件。

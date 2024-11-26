@@ -7,6 +7,7 @@
 - 简化了mavenBom的使用
 - SpringBoot测试不需要空的SpringBootApplication
 - application service的测试不需要mock所有的依赖
+- 省略了configuration组件中的client契约
 
 缺点：
 
