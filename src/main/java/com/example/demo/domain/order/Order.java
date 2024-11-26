@@ -2,11 +2,10 @@ package com.example.demo.domain.order;
 
 import com.example.demo.domain.product.ProductId;
 import com.example.demo.domain.user.UserId;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.math.BigDecimal;
 import java.time.Instant;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @Getter
 @AllArgsConstructor

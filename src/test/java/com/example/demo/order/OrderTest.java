@@ -1,17 +1,16 @@
 package com.example.demo.order;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.example.demo.domain.order.Order;
 import com.example.demo.domain.order.OrderId;
 import com.example.demo.domain.order.OrderStatus;
 import com.example.demo.domain.product.ProductId;
 import com.example.demo.domain.user.UserId;
-import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
 import java.time.Instant;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.junit.jupiter.api.Test;
 
 class OrderTest {
 
