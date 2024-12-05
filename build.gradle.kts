@@ -3,7 +3,7 @@ plugins {
     jacoco
     id("org.springframework.boot") version "3.4.0"
     id("io.spring.dependency-management") version "1.1.6"
-    id("org.springframework.cloud.contract") version "4.1.4"
+    id("org.springframework.cloud.contract") version "4.2.0"
     id("com.diffplug.spotless") version "7.0.0.BETA4"
 }
 
@@ -26,7 +26,7 @@ repositories {
     mavenCentral()
 }
 
-extra["springCloudVersion"] = "2023.0.3"
+extra["springCloudVersion"] = "2024.0.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
