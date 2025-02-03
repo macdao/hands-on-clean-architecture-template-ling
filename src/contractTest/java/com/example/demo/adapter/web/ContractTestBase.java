@@ -1,7 +1,7 @@
 package com.example.demo.adapter.web;
 
 import com.example.demo.adapter.web.order.adapter.PlaceOrderAdapter;
-import com.example.demo.application.port.in.PayOrderUseCase;
+import com.example.demo.application.service.PayOrderService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ abstract class ContractTestBase {
     WebApplicationContext context;
 
     @MockitoBean
-    PayOrderUseCase payOrderUseCase;
+    PayOrderService payOrderService;
 
     @MockitoBean
     PlaceOrderAdapter placeOrderAdapter;

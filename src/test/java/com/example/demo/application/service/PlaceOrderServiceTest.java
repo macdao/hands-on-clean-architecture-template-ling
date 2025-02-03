@@ -3,9 +3,9 @@ package com.example.demo.application.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
-import com.example.demo.application.port.in.PlaceOrderUseCase.PlaceOrderCommand;
 import com.example.demo.application.port.out.DeductInventoryPort;
 import com.example.demo.application.port.out.SaveOrderPort;
+import com.example.demo.application.service.PlaceOrderService.PlaceOrderCommand;
 import com.example.demo.domain.order.Order;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;

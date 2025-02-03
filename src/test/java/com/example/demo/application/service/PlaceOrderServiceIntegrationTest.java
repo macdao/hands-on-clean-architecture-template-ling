@@ -2,9 +2,9 @@ package com.example.demo.application.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.example.demo.application.port.in.PlaceOrderUseCase.PlaceOrderCommand;
 import com.example.demo.application.port.out.DeductInventoryPort;
 import com.example.demo.application.port.out.SaveOrderPort;
+import com.example.demo.application.service.PlaceOrderService.PlaceOrderCommand;
 import jakarta.validation.ConstraintViolationException;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;

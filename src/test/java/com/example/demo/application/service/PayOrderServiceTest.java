@@ -7,7 +7,6 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.example.demo.application.port.in.OrderNotFoundException;
 import com.example.demo.application.port.out.FindOrderPort;
 import com.example.demo.application.port.out.SaveOrderPort;
 import com.example.demo.domain.order.Order;

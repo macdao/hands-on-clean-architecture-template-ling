@@ -1,7 +1,5 @@
 package com.example.demo.application.service;
 
-import com.example.demo.application.port.in.OrderNotFoundException;
-import com.example.demo.application.port.in.PayOrderUseCase;
 import com.example.demo.application.port.out.FindOrderPort;
 import com.example.demo.application.port.out.SaveOrderPort;
 import com.example.demo.domain.order.Order;
@@ -12,11 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class PayOrderService implements PayOrderUseCase {
+public class PayOrderService {
     private final FindOrderPort findOrderPort;
     private final SaveOrderPort saveOrderPort;
 
-    @Override
     @Transactional
     public void payOrder(String orderId) throws OrderNotFoundException {
         OrderId orderIdObj = new OrderId(orderId);

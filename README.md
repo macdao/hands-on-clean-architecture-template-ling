@@ -1,8 +1,48 @@
 # HoCATLing 🐾
 
-HoCATLing，Hands-on Clean Architecture Template Ling，即可落地的整洁架构模板轻量级版本。
+HoCATLing，Hands-on Clean Architecture Template Ling，即可落地的整洁架构模板轻量级版本，基于[HoCAT](https://github.com/macdao/hands-on-clean-architecture-template)，适用于小型项目。
 
-基于[HoCAT](https://github.com/macdao/hands-on-clean-architecture-template)，不拆分多个独立的组件，适用于小型项目。
+- 不拆分多个独立的组件，简化项目结构
+- 刻意不使用DIP，而是直接依赖实现，简化依赖关系
+
+```plantuml
+@startuml
+skinparam defaultFontName Fira Code, Monospaced
+skinparam RectangleBorderStyle<<Boundary>> dashed
+skinparam RectangleBackgroundColor White
+skinparam ComponentBackgroundColor WhiteSmoke
+hide <<Boundary>> stereotype
+
+rectangle Boundary <<Boundary>> {
+  [application] -> [domain]
+
+  component adapter:web {
+    rectangle web
+    rectangle web.adapter
+    web --> web.adapter
+  }
+  [web.adapter] --> [application]
+
+  component adapter:persistence {
+    rectangle persistence
+    rectangle persistence.adapter
+    [persistence.adapter] --> [persistence] 
+  }
+  [application] --> [persistence.adapter]
+
+  component adapter:client {
+    rectangle client
+    rectangle client.adapter
+    [client.adapter] --> [client] 
+  }
+  [application] --> [client.adapter]
+}
+
+
+[configuration] --> Boundary
+
+@enduml
+```
 
 ## 项目说明
 
