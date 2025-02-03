@@ -2,8 +2,6 @@ package com.example.demo.adapter.persistence.order.adapter;
 
 import com.example.demo.adapter.persistence.order.OrderEntity;
 import com.example.demo.adapter.persistence.order.OrderEntityRepository;
-import com.example.demo.application.port.out.FindOrderPort;
-import com.example.demo.application.port.out.SaveOrderPort;
 import com.example.demo.domain.order.Order;
 import com.example.demo.domain.order.OrderId;
 import com.example.demo.domain.product.ProductId;
@@ -14,11 +12,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class OrderPersistenceAdapter implements SaveOrderPort, FindOrderPort {
+public class OrderPersistenceAdapter {
 
     private final OrderEntityRepository orderEntityRepository;
 
-    @Override
     public void save(Order order) {
         OrderEntity orderEntity = new OrderEntity(
                 order.getId().value(),
@@ -32,7 +29,6 @@ public class OrderPersistenceAdapter implements SaveOrderPort, FindOrderPort {
         orderEntityRepository.save(orderEntity);
     }
 
-    @Override
     public Optional<Order> findById(OrderId orderId) {
         return orderEntityRepository
                 .findById(orderId.value())

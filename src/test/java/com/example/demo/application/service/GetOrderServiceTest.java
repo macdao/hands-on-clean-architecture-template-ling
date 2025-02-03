@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.example.demo.application.port.out.FindOrderPort;
+import com.example.demo.adapter.persistence.order.adapter.OrderPersistenceAdapter;
 import com.example.demo.domain.order.Order;
 import com.example.demo.domain.order.OrderId;
 import java.util.Optional;
@@ -19,7 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class GetOrderServiceTest {
 
     @Mock
-    FindOrderPort findOrderPort;
+    OrderPersistenceAdapter orderPersistenceAdapter;
 
     @InjectMocks
     GetOrderService getOrderService;
@@ -28,7 +28,7 @@ class GetOrderServiceTest {
     void find_by_id_should_return_order_when_order_exists() throws OrderNotFoundException {
         String orderId = "order-id-1";
         Order mockOrder = mock(Order.class);
-        when(findOrderPort.findById(new OrderId(orderId))).thenReturn(Optional.of(mockOrder));
+        when(orderPersistenceAdapter.findById(new OrderId(orderId))).thenReturn(Optional.of(mockOrder));
 
         Order result = getOrderService.findById(orderId);
 
@@ -38,7 +38,7 @@ class GetOrderServiceTest {
     @Test
     void find_by_id_should_throw_order_not_found_exception_when_order_does_not_exist() {
         String orderId = "order-id-1";
-        when(findOrderPort.findById(new OrderId(orderId))).thenReturn(Optional.empty());
+        when(orderPersistenceAdapter.findById(new OrderId(orderId))).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> getOrderService.findById(orderId))
                 .isInstanceOf(OrderNotFoundException.class)

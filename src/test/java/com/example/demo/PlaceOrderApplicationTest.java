@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.demo.adapter.client.inventory.InventoryAdapter;
+import com.example.demo.adapter.client.inventory.DeductInventoryAdapter;
 import com.example.demo.adapter.persistence.order.OrderEntity;
 import com.example.demo.adapter.persistence.order.OrderEntityRepository;
 import java.util.List;
@@ -61,8 +61,8 @@ class PlaceOrderApplicationTest {
 
         @Bean
         @Primary
-        InventoryAdapter testInventoryAdapter(RestClient.Builder restClientBuilder) {
-            return new InventoryAdapter(restClientBuilder, "http://localhost:" + port);
+        DeductInventoryAdapter testInventoryAdapter(RestClient.Builder restClientBuilder) {
+            return new DeductInventoryAdapter(restClientBuilder, "http://localhost:" + port);
         }
     }
 }

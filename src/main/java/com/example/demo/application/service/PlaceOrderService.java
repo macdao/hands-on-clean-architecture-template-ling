@@ -1,7 +1,7 @@
 package com.example.demo.application.service;
 
-import com.example.demo.application.port.out.DeductInventoryPort;
-import com.example.demo.application.port.out.SaveOrderPort;
+import com.example.demo.adapter.client.inventory.DeductInventoryAdapter;
+import com.example.demo.adapter.persistence.order.adapter.OrderPersistenceAdapter;
 import com.example.demo.domain.order.Order;
 import com.example.demo.domain.product.ProductId;
 import com.example.demo.domain.user.UserId;
@@ -18,12 +18,12 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 @Validated
 public class PlaceOrderService {
-    private final SaveOrderPort saveOrderPort;
-    private final DeductInventoryPort deductInventoryPort;
+    private final OrderPersistenceAdapter orderPersistenceAdapter;
+    private final DeductInventoryAdapter deductInventoryAdapter;
     private final TransactionTemplate transactionTemplate;
 
     public void placeOrder(@Valid PlaceOrderCommand command) {
-        deductInventoryPort.deductInventory(command.productId(), command.quantity());
+        deductInventoryAdapter.deductInventory(command.productId(), command.quantity());
 
         transactionTemplate.execute(status -> {
             Order order = new Order(
@@ -32,7 +32,7 @@ public class PlaceOrderService {
                     command.quantity(),
                     command.price());
 
-            saveOrderPort.save(order);
+            orderPersistenceAdapter.save(order);
             return null;
         });
     }

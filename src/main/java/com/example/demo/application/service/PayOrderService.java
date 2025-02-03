@@ -1,7 +1,6 @@
 package com.example.demo.application.service;
 
-import com.example.demo.application.port.out.FindOrderPort;
-import com.example.demo.application.port.out.SaveOrderPort;
+import com.example.demo.adapter.persistence.order.adapter.OrderPersistenceAdapter;
 import com.example.demo.domain.order.Order;
 import com.example.demo.domain.order.OrderId;
 import lombok.RequiredArgsConstructor;
@@ -11,18 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class PayOrderService {
-    private final FindOrderPort findOrderPort;
-    private final SaveOrderPort saveOrderPort;
+    private final OrderPersistenceAdapter orderPersistenceAdapter;
 
     @Transactional
     public void payOrder(String orderId) throws OrderNotFoundException {
         OrderId orderIdObj = new OrderId(orderId);
-        Order order = findOrderPort
+        Order order = orderPersistenceAdapter
                 .findById(orderIdObj)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID " + orderId + " not found"));
 
         order.pay();
 
-        saveOrderPort.save(order);
+        orderPersistenceAdapter.save(order);
     }
 }

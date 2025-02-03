@@ -6,8 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.example.demo.application.port.out.FindOrderPort;
-import com.example.demo.application.port.out.SaveOrderPort;
+import com.example.demo.adapter.persistence.order.adapter.OrderPersistenceAdapter;
 import com.example.demo.domain.order.Order;
 import com.example.demo.domain.order.OrderId;
 import java.util.Optional;
@@ -23,33 +22,30 @@ class PayOrderServiceIntegrationTest {
     @Autowired
     PayOrderService payOrderService;
 
-    @MockitoBean("findOrderPort")
-    FindOrderPort findOrderPort;
-
     @MockitoBean
     PlatformTransactionManager transactionManager;
 
-    @MockitoBean("saveOrderPort")
-    SaveOrderPort saveOrderPort;
+    @MockitoBean
+    OrderPersistenceAdapter orderPersistenceAdapter;
 
     @Test
     void pay_order_should_pay_and_save_order_when_order_exists() throws OrderNotFoundException {
         String orderId = "order-id-1";
         Order mockOrder = mock(Order.class);
-        when(findOrderPort.findById(new OrderId(orderId))).thenReturn(Optional.of(mockOrder));
+        when(orderPersistenceAdapter.findById(new OrderId(orderId))).thenReturn(Optional.of(mockOrder));
         when(transactionManager.getTransaction(any())).thenReturn(new SimpleTransactionStatus());
 
         payOrderService.payOrder(orderId);
 
         verify(mockOrder).pay();
-        verify(saveOrderPort).save(mockOrder);
+        verify(orderPersistenceAdapter).save(mockOrder);
         verify(transactionManager).commit(any());
     }
 
     @Test
     void pay_order_should_throw_order_not_found_exception_when_order_does_not_exist() throws OrderNotFoundException {
         String orderId = "order-id-1";
-        when(findOrderPort.findById(new OrderId(orderId))).thenReturn(Optional.empty());
+        when(orderPersistenceAdapter.findById(new OrderId(orderId))).thenReturn(Optional.empty());
         when(transactionManager.getTransaction(any())).thenReturn(new SimpleTransactionStatus());
 
         assertThatThrownBy(() -> payOrderService.payOrder(orderId)).isInstanceOf(OrderNotFoundException.class);

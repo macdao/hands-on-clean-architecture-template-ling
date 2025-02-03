@@ -3,8 +3,8 @@ package com.example.demo.application.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
-import com.example.demo.application.port.out.DeductInventoryPort;
-import com.example.demo.application.port.out.SaveOrderPort;
+import com.example.demo.adapter.client.inventory.DeductInventoryAdapter;
+import com.example.demo.adapter.persistence.order.adapter.OrderPersistenceAdapter;
 import com.example.demo.application.service.PlaceOrderService.PlaceOrderCommand;
 import com.example.demo.domain.order.Order;
 import java.math.BigDecimal;
@@ -22,10 +22,10 @@ import org.springframework.transaction.support.TransactionTemplate;
 class PlaceOrderServiceTest {
 
     @Mock
-    SaveOrderPort saveOrderPort;
+    OrderPersistenceAdapter orderPersistenceAdapter;
 
     @Mock
-    DeductInventoryPort deductInventoryPort;
+    DeductInventoryAdapter deductInventoryAdapter;
 
     @Mock
     TransactionTemplate transactionTemplate;
@@ -48,7 +48,7 @@ class PlaceOrderServiceTest {
         verify(transactionTemplate).execute(transactionCallbackCaptor.capture());
 
         transactionCallbackCaptor.getValue().doInTransaction(null);
-        verify(saveOrderPort).save(orderCaptor.capture());
+        verify(orderPersistenceAdapter).save(orderCaptor.capture());
         Order capturedOrder = orderCaptor.getValue();
         assertThat(capturedOrder.getBuyerId().value()).isEqualTo("user-id-1");
         assertThat(capturedOrder.getPrice()).isEqualByComparingTo(new BigDecimal("100.0"));
@@ -62,6 +62,6 @@ class PlaceOrderServiceTest {
 
         placeOrderService.placeOrder(command);
 
-        verify(deductInventoryPort).deductInventory("product-id-1", 2);
+        verify(deductInventoryAdapter).deductInventory("product-id-1", 2);
     }
 }

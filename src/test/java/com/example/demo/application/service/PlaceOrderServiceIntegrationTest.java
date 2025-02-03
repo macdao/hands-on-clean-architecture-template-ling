@@ -2,8 +2,8 @@ package com.example.demo.application.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.example.demo.application.port.out.DeductInventoryPort;
-import com.example.demo.application.port.out.SaveOrderPort;
+import com.example.demo.adapter.client.inventory.DeductInventoryAdapter;
+import com.example.demo.adapter.persistence.order.adapter.OrderPersistenceAdapter;
 import com.example.demo.application.service.PlaceOrderService.PlaceOrderCommand;
 import jakarta.validation.ConstraintViolationException;
 import java.math.BigDecimal;
@@ -19,11 +19,11 @@ class PlaceOrderServiceIntegrationTest {
     @Autowired
     PlaceOrderService placeOrderService;
 
-    @MockitoBean("saveOrderPort")
-    SaveOrderPort saveOrderPort;
+    @MockitoBean
+    OrderPersistenceAdapter orderPersistenceAdapter;
 
     @MockitoBean
-    DeductInventoryPort deductInventoryPort;
+    DeductInventoryAdapter deductInventoryAdapter;
 
     @MockitoBean
     TransactionTemplate transactionTemplate;
