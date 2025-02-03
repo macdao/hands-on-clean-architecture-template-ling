@@ -92,6 +92,8 @@ tasks.named<JacocoReport>("jacocoTestReport") {
 }
 
 tasks.named<JacocoCoverageVerification>("jacocoTestCoverageVerification") {
+    tasks.withType<Test>().forEach { executionData(it) }
+
     violationRules {
         rule {
             limit {

@@ -1,7 +1,6 @@
 package com.example.demo.adapter.web.order;
 
-import com.example.demo.application.port.in.PlaceOrderUseCase;
-import com.example.demo.application.port.in.PlaceOrderUseCase.PlaceOrderCommand;
+import com.example.demo.adapter.web.order.adapter.PlaceOrderAdapter;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
@@ -17,14 +16,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class PlaceOrderController {
-    private final PlaceOrderUseCase placeOrderUseCase;
+    private final PlaceOrderAdapter placeOrderAdapter;
 
     @PostMapping("/orders")
     @ResponseStatus(HttpStatus.CREATED)
     public void placeOrder(@RequestBody @Valid PlaceOrderRequest request, @AuthenticationPrincipal User user) {
-        PlaceOrderCommand command =
-                new PlaceOrderCommand(user.getUsername(), request.productId(), request.quantity(), request.price());
-        placeOrderUseCase.placeOrder(command);
+        placeOrderAdapter.placeOrder(request, user);
     }
 
     public record PlaceOrderRequest(
