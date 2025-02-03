@@ -1,5 +1,6 @@
 package com.example.demo.adapter.web;
 
+import com.example.demo.adapter.web.order.adapter.GetOrderAdapter;
 import com.example.demo.adapter.web.order.adapter.PlaceOrderAdapter;
 import com.example.demo.application.service.PayOrderService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -20,6 +21,9 @@ abstract class ContractTestBase {
 
     @MockitoBean
     PlaceOrderAdapter placeOrderAdapter;
+
+    @MockitoBean
+    GetOrderAdapter getOrderAdapter;
 
     @BeforeEach
     public void setup() {
