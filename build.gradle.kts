@@ -1,10 +1,10 @@
 plugins {
     java
     jacoco
-    id("org.springframework.boot") version "3.4.0"
-    id("io.spring.dependency-management") version "1.1.6"
+    id("org.springframework.boot") version "3.4.2"
+    id("io.spring.dependency-management") version "1.1.7"
     id("org.springframework.cloud.contract") version "4.2.0"
-    id("com.diffplug.spotless") version "7.0.0.BETA4"
+    id("com.diffplug.spotless") version "7.0.2"
 }
 
 group = "com.example"
