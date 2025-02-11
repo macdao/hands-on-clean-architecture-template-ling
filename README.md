@@ -5,7 +5,7 @@ HoCATLing，Hands-on Clean Architecture Template Ling，即可落地的整洁架
 - 不拆分多个独立的组件，简化项目结构
 - 刻意不使用DIP，而是直接依赖实现，简化依赖关系
 
-![HoCATLing Diagram](https://www.plantuml.com/plantuml/svg/ZPB1QXin48RlUefvWFe5YZ593EcbBIKvv11o64iJhuXM8qQpBKlnkvU8R2rPQzgRcV_xPpxalScAejCOJ7xpCQ7W28vUSGfwpr6_uqXmxmLXpuu-mJUEd1DQSXN_G5On7WFTiJYIHvq3RRTtF4M7Ckzsu30FLnfetuxoJkuvi3Ijfy4hhPNUnVeZaMN4y1z7u8lWN75x7XD7Ydh9VVN7GQ_1VoNWmC6PmJk2nYSh2R7EYOoHHGKMe6L_6m2xR0PCANYBwZcM1E3SlprdZoG_lIK3S39jts5Iai-_wD3rznnLE0IIY-293hUbLuAAWyrcrwOd0zMWvBtMkb8YoJuhHKkTsWCbpbvPvelWnxbKAVRZebAjWG_NNgw0VN_TsGPFKVkNBEFLOMNPJ8hWn-GVSksYAzmEdXsFwEDBzu_KoV8JjflD-cCsH7lwP8nvjXnV_N6ISlwbx5--NdD3qKrZ-0C0)
+![HoCATLing Diagram](https://www.plantuml.com/plantuml/svg/ZPFDQXin4CVlUefvWFe5YbcI6D9BsvG4aaF8OInDR16jHencMvQIToyMMQ-yiajkzlzZvZU8lSgAeaCVJ7xpCQ5W3uvUSGXwor5_OazmwmLXmuw-m0-Ed1DQSbN-dgnYt0MwON4a3pe6MgzlU8WEPUmwS9Zt5nfettPoI6uui9oqdlPUwLpf0DOkYImzXayiWM-2OvNRS9yuKjHbxhlVxVLI-0W1MmxExBqZEE79IaAiOo9ZP4A1AN2Q_Mi0x3GPCANWBQhdM1o0kNyzUmyalxqb0_1kJliEav9y_KFRfh_XgC8Xa2oC9zfUbrungXoiLjtiBckFTqsycyJ7ErYlLbMte48bbDdjIUVFIIJPPwLegJdhdX9dhopZmlWrb-e3MhcWp6FWWxM5Ay6sVvxP1d_usxn2aS-ADMMj5C0FvVzmYq4NSXqyE-xHnvVcHMfd-bbUihrwaLYiVZV6F5kEhtutI5d_KkOVFm8mvegY6_hm3m00)
 
 ```plantuml
 @startuml
@@ -27,6 +27,9 @@ rectangle Boundary <<Boundary>> {
     rectangle Controller
     rectangle WebAdapter
     Controller --> WebAdapter
+    rectangle VO
+    Controller -> VO
+    VO <-- WebAdapter
   }
   WebAdapter --> ApplicationService
 
