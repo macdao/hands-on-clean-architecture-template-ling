@@ -5,7 +5,7 @@ HoCATLing，Hands-on Clean Architecture Template Ling，即可落地的整洁架
 - 不拆分多个独立的组件，简化项目结构
 - 刻意不使用DIP，而是直接依赖实现，简化依赖关系
 
-![HoCATLing Diagram](https://www.plantuml.com/plantuml/svg/ZPFDQXin4CVlUefvWFe5YbcI6D9BsvG4aaF8OInDR16jHencMvQIToyMMQ-yiajkzlzZvZU8lSgAeaCVJ7xpCQ5W3uvUSGXwor5_OazmwmLXmuw-m0-Ed1DQSbN-dgnYt0MwON4a3pe6MgzlU8WEPUmwS9Zt5nfettPoI6uui9oqdlPUwLpf0DOkYImzXayiWM-2OvNRS9yuKjHbxhlVxVLI-0W1MmxExBqZEE79IaAiOo9ZP4A1AN2Q_Mi0x3GPCANWBQhdM1o0kNyzUmyalxqb0_1kJliEav9y_KFRfh_XgC8Xa2oC9zfUbrungXoiLjtiBckFTqsycyJ7ErYlLbMte48bbDdjIUVFIIJPPwLegJdhdX9dhopZmlWrb-e3MhcWp6FWWxM5Ay6sVvxP1d_usxn2aS-ADMMj5C0FvVzmYq4NSXqyE-xHnvVcHMfd-bbUihrwaLYiVZV6F5kEhtutI5d_KkOVFm8mvegY6_hm3m00)
+![HoCATLing Diagram](https://www.plantuml.com/plantuml/svg/ZPJFYXin3CRlVWezGFC29OJT3TrUsbAoXpqiIt76siJ48xcofcKeUVSsBidyyHZsbA3lztsIXPYxf5QqQuD99q_HYct1uPljWZuowJVR8ZnwiR1bXn_WAnEdQ1jq8tw7ZLew17nWSIXFsWTShn-u8sUbtsp0sNIiE6npEiY5t79WcRYUZrvnoNGPh6n2BAqDxsW2dyNs8sxBRMH2qZdtnH-EMeDlGy2UWpD7xn0cyoH5GTO-eZ5o7GMkm9JzOm2QQpBO68Dlh7gch00C_lj1UqBvvHiq06SpzJiR5UNZRzmN_YsJ2eU0CXEUSVzZXpyxJFhlDqMcX1aP7B3QB69bqlt_2Gf_3XYhYtcmNgsctDd0g91poaKiBo6Y99yKgS5Y6JkCdBooz3FX4wdNN1mnb-TdOKv_7rgCdrQMy-13O9qQ6kMdbs_DJ6bTNa4JF9AMfv3BYyNA9MJjieOwLMQDLpAfmEgML1ShRUfRcNMjS1juSTnQJw_bPGtAxM--o7BTSsBQ-coCUMcOtloXazp-DUVVFW5Wp1sIwzhm5m00)
 
 ```plantuml
 @startuml
@@ -25,25 +25,31 @@ rectangle Boundary <<Boundary>> {
 
   component adapter:web {
     rectangle Controller
+    rectangle Web_Request_Response
+    Controller -> Web_Request_Response
     rectangle WebAdapter
     Controller --> WebAdapter
-    rectangle VO
-    Controller -> VO
-    VO <-- WebAdapter
+    Web_Request_Response <-- WebAdapter
   }
   WebAdapter --> ApplicationService
 
   component adapter:persistence {
     rectangle Repository
+    rectangle Entity
+    Repository -> Entity
     rectangle PersistenceAdapter
-    PersistenceAdapter --> Repository 
+    PersistenceAdapter --> Repository
+    PersistenceAdapter --> Entity
   }
   ApplicationService --> PersistenceAdapter
 
   component adapter:client {
     rectangle Client
+    rectangle Client_Request_Response
+    Client -> Client_Request_Response
     rectangle ClientAdapter
-    ClientAdapter --> Client 
+    ClientAdapter --> Client
+    ClientAdapter --> Client_Request_Response
   }
   ApplicationService --> ClientAdapter
 
